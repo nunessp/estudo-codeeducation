@@ -20,4 +20,5 @@ Route::post('/client', 'ClientController@store');
 Route::get('/client/{id}', 'ClientController@show');
 Route::delete('/client/{id}', 'ClientController@destroy');
 
+/*just test*/
 Route::get('/products', 'ProductController@index');
