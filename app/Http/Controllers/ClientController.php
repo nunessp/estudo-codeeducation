@@ -6,6 +6,7 @@ use CodeProject\Client;
 use Illuminate\Http\Request;
 
 use CodeProject\Http\Requests;
+use Illuminate\Http\Response;
 
 class ClientController extends Controller
 {
@@ -51,7 +52,20 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $client = Client::find($id);
+        if(!$client){
+            return response()->json(['response' => 'client not found']);
+        }
+
+        $client->name = $request->get('name');
+        $client->responsible = $request->get('responsible');
+        $client->email = $request->get('email');
+        $client->phone = $request->get('phone');
+        $client->address = $request->get('address');
+        $client->obs = $request->get('obs');
+
+        $client->save();
+        return $client;
     }
 
     /**
@@ -62,6 +76,16 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        Client::find($id)->delete();
+       $client = Client::find($id);
+       if(!$client){
+           return response()->json(['response' => 'client not found']);
+       }
+
+       if(Client::find($id)->delete()){
+           return response()->json(['response' => 'client deleted with sucess']);
+       }
+       else{
+           return response()->json(['response' => 'an error occurred']);
+       }
     }
 }
