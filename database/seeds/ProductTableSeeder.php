@@ -11,7 +11,7 @@ class ProductTableSeeder extends Seeder
      */
     public function run()
     {
-        \CodeProject\Product::truncate();
-        factory(\CodeProject\Product::class, 10)->create();
+        \CodeProject\Entities\Product::truncate();
+        factory(\CodeProject\Entities\Product::class, 10)->create();
     }
 }
