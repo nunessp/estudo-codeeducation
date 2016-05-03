@@ -27,9 +27,9 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, ClientRepository $repository)
     {
-        return Client::create($request->all());
+        return $repository->create($request->all());
     }
 
     /**
@@ -38,9 +38,9 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, ClientRepository $repository)
     {
-        return Client::find($id);
+        return $repository->find($id);
     }
 
     /**
@@ -50,9 +50,9 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, ClientRepository $repository)
     {
-        $client = Client::find($id);
+        $client = $repository->find($id);
         if(!$client){
             return response()->json(['response' => 'client not found']);
         }
@@ -74,9 +74,9 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, ClientRepository $repository)
     {
-       $client = Client::find($id);
+       $client = $repository->find($id);
        if(!$client){
            return response()->json(['response' => 'client not found']);
        }
