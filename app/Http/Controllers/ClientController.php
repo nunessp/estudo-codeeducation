@@ -10,14 +10,21 @@ use CodeProject\Http\Requests;
 
 class ClientController extends Controller
 {
+    private $repository;
+
+    public function __construct(ClientRepository $repository){
+        $this->repository = $repository;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(ClientRepository $repository)
+    public function index()
     {
-        return $repository->all();
+
+        return $this->repository->all();
     }
 
 
@@ -27,9 +34,9 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, ClientRepository $repository)
+    public function store(Request $request)
     {
-        return $repository->create($request->all());
+        return $this->repository->create($request->all());
     }
 
     /**
@@ -38,9 +45,9 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, ClientRepository $repository)
+    public function show($id)
     {
-        return $repository->find($id);
+        return $this->repository->find($id);
     }
 
     /**
@@ -50,9 +57,9 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, ClientRepository $repository)
+    public function update(Request $request, $id)
     {
-        $client = $repository->find($id);
+        $client = $this->repository->find($id);
         if(!$client){
             return response()->json(['response' => 'client not found']);
         }
@@ -74,9 +81,9 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, ClientRepository $repository)
+    public function destroy($id)
     {
-       $client = $repository->find($id);
+       $client = $this->repository->find($id);
        if(!$client){
            return response()->json(['response' => 'client not found']);
        }
@@ -88,4 +95,6 @@ class ClientController extends Controller
            return response()->json(['response' => 'an error occurred']);
        }
     }
+
+
 }
